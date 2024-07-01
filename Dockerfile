@@ -4,7 +4,7 @@ WORKDIR /app
 
 # Copy csproj and restore as distinct layers
 COPY *.sln ./
-COPY MyDotNetApp/*.csproj ./MyDotNetApp/
+COPY BankingSystem/*.csproj ./BankingSystem/
 RUN dotnet restore
 
 # Copy everything else and build
@@ -20,4 +20,4 @@ COPY --from=build-env /app/out .
 EXPOSE 80
 
 # Set the entry point to the application
-ENTRYPOINT ["dotnet", "MyDotNetApp.dll"]
+ENTRYPOINT ["dotnet", "BankingSystem.dll"]
