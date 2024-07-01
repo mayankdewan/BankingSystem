@@ -53,9 +53,10 @@ namespace BankingSystemTest.Controller
 
             // Act
             var result = _controller.CreateAccount(userId);
+            var okResult = result.Result as OkObjectResult;
 
             // Assert
-            Assert.IsType<NotFoundResult>(result.Result);
+            Assert.Equal("Invalid User. Please try again.", okResult.Value);
         }
 
         [Fact]

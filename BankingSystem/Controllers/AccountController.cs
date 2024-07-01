@@ -19,7 +19,7 @@ namespace BankingSystem.Controllers
         public ActionResult<Account> CreateAccount(int userId)
         {
             var account = _accountService.CreateAccount(userId);
-            if (account == null) return NotFound();
+            if (account == null) return Ok("Invalid User. Please try again.");
             return CreatedAtAction(nameof(GetAccount), new { id = account.Id }, account);
         }
 
