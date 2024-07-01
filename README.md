@@ -1,3 +1,6 @@
+Enter the BankingSystem folder using cd BankingSystem and run the compose command docker-compose up --build
+
+
 Post Running it on Docker Enter /Swagger to trigger the Swagger UI and tryout all the API's
 
 
