@@ -5,7 +5,7 @@ WORKDIR /app
 # Copy csproj and restore as distinct layers
 COPY *.sln ./
 COPY BankingSystem/*.csproj ./BankingSystem/
-RUN dotnet restore
+RUN dotnet restore "BankingSystem/BankingSystem.csproj"
 
 # Copy everything else and build
 COPY . ./
