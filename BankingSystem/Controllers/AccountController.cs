@@ -30,7 +30,7 @@ namespace BankingSystem.Controllers
             {
                 return Ok("Account Deleted Successfully");
             }
-            return BadRequest("Something went wrong. Please try again.");
+            return Ok("Enter a valid Account Number.");
         }
 
         [HttpPost("deposit/{id}")]
@@ -60,7 +60,7 @@ namespace BankingSystem.Controllers
 
             if (amount > account.Balance * 0.9m)
             {
-                return BadRequest("You cannot withdraw more than 90% of their total balance from an account in a single transaction.");
+                return BadRequest("You cannot withdraw more than 90% of your total balance from an account in a single transaction.");
             }
 
             if (account.Balance - amount < 100)

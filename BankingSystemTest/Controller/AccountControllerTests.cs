@@ -85,12 +85,12 @@ namespace BankingSystemTest.Controller
 
             // Act
             var result = _controller.DeleteAccount(accountId) as IActionResult;
-            var badRequestResult = result as BadRequestObjectResult;
+            var okResult = result as OkObjectResult;
 
             // Assert
             Assert.NotNull(result);
-            Assert.NotNull(badRequestResult);
-            Assert.Equal("Something went wrong. Please try again.", badRequestResult.Value);
+            Assert.NotNull(okResult);
+            Assert.Equal("Enter a valid Account Number.", okResult.Value);
         }
 
         [Fact]
@@ -205,7 +205,7 @@ namespace BankingSystemTest.Controller
             // Assert
             Assert.NotNull(result);
             Assert.NotNull(badRequestResult);
-            Assert.Equal("You cannot withdraw more than 90% of their total balance from an account in a single transaction.", badRequestResult.Value);
+            Assert.Equal("You cannot withdraw more than 90% of your total balance from an account in a single transaction.", badRequestResult.Value);
         }
 
         [Fact]
