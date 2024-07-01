@@ -1,19 +1,22 @@
-# Use the official .NET Core SDK image for building the project
-FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build-env
+# Use the official ASP.NET Core runtime as a base image
+FROM mcr.microsoft.com/dotnet/aspnet:6.0 AS base
 WORKDIR /app
+EXPOSE 80
 
-# Copy csproj and restore as distinct layers
-COPY *.csproj ./
-RUN dotnet restore
+# Use the SDK image to build the app
+FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
+WORKDIR /src
+COPY ["BankingSystem/BankingSystem.csproj", "BankingSystem/"]
+RUN dotnet restore "BankingSystem/BankingSystem.csproj"
+COPY . .
+WORKDIR "/src/BankingSystem"
+RUN dotnet build "BankingSystem.csproj" -c Release -o /app/build
 
-# Copy everything else and build
-COPY . ./
-RUN dotnet publish -c Release -o out
+FROM build AS publish
+RUN dotnet publish "BankingSystem.csproj" -c Release -o /app/publish
 
-# Use the official .NET runtime image for running the application
-FROM mcr.microsoft.com/dotnet/aspnet:6.0
+# Use the base image and copy the build output
+FROM base AS final
 WORKDIR /app
-COPY --from=build-env /app/out .
-
-# Set the entry point to the application
+COPY --from=publish /app/publish .
 ENTRYPOINT ["dotnet", "BankingSystem.dll"]
